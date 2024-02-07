@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="library_book_view_tree" model="ir.ui.view">
+        <field name="name">library.book.tree</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree string="Books" decoration-bf="availability_status == 'sold'">
+                <field name="name"/>
+                <field name="price"/>
+                <field name="author_id"/>
+                <field name="types"/>
+                <field name="availability_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="library_book_view_graph" model="ir.ui.view">
+        <field name="name">library.book.graph</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <graph string="Books Graph" type="bar">
+                <field name="types"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Gantt View -->
+    <record id="library_view_gantt" model="ir.ui.view">
+        <field name="name">library.view.gantt</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <gantt string="Book" date_start="create_date" date_stop="end_date" default_group_by="types" default_scale="week" color="id" decoration-info="availability_status == 'borrowed'">
+                <field name="availability_status"/>
+            </gantt>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="library_book_view_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Books">
+                <header>
+                    <button name="action_borrow" string="Borrowed" type="object" class="btn-primary"/>
+                    <button name="action_sold" string="Sold" type="object" class="btn-primary"/>
+                    <button name="action_return" string="Return" type="object" class="btn-danger"/>
+                    <field name="availability_status" string="Availability" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title mb-3 mx-3">
+                        <h1>
+                            <field name="name" placeholder="Book Name"/>
+                        </h1>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <group>
+                                    <field name="price" string="Price"/>
+                                    <field name="types" string="Type"/>
+                                </group>
+                                <notebook>
+                                    <page string="Content">
+                                        <group>
+                                            <field name="description" string="Description"/>
+                                            <field name="language" string="Language"/>
+                                            <field name="buyer_id" string="Buyer"/>
+                                            <field name="availability_status"/>
+                                            <field name="edition" string="Edition"/>
+                                            <field name="author_name" string="Author Name"/>
+                                        </group>
+                                    </page>
+                                    <page string="Customer">
+                                        <field name="customer_ids">
+                                            <tree>
+                                                <field name="name"/>
+                                                <field name="phone" string="Phone Number"/>
+                                                <field name="bill_amount" string="Bill Amount"/>
+                                                <field name="payment_method"/>
+                                                <field name="amount_paid" string="Amount Paid"/>
+                                                <field name="is_bill_paid"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-right">
+                                    <field name="image" widget="image" style="max-width: 200px; max-height: 200px"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="book_view_kanban" model="ir.ui.view">
+        <field name="name">Custom Kanban view</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="availability_status"/>
+                <templates>
+                    <t t-name="kanban-box" default_group_by="customer_ids" records_draggable="False">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image_fill_left d-none d-md-block">
+                                <field name="image" widget="image" max-width="200px" max-height="200px"/>
+                            </div>
+                            <field name="name"/>
+                            <div>
+                                Price:
+                                <field name="price"></field>
+                            </div>
+                            <div>
+                                Type:
+                                <field name="types"></field>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="library_book_view_search" model="ir.ui.view">
+        <field name="name">library.book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search string="Books">
+                <field name="name" string="Name"/>
+                <field name="price" string="Price"/>
+                <field name="author_id" string="Author"/>
+                <field name="types" string="Type"/>
+                <field name="availability_status" string="Availability"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="library_book_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">tree,form,kanban,graph,gantt</field>
+    </record>
+
+    <!-- Form Action -->
+    <record id="library_book1_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>

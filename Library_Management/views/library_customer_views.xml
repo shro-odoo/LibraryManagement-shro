@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="library_customer_view_tree" model="ir.ui.view">
+        <field name="name">library.customer.tree</field>
+        <field name="model">library.customer</field>
+        <field name="arch" type="xml">
+            <tree string="Customer">
+                <field name="name" string="Customer Name"/>
+                <field name="phone" string="Phone Number"/>
+                <field name="amount_paid" string="Amount paid by"/>
+                <field name="borrowed_book_ids" string="Books Borrowed"/>
+            </tree>
+        </field>
+    </record>
+   
+    <record id="library_customer_view_form" model="ir.ui.view">
+        <field name="name">library.customer.form</field>
+        <field name="model">library.customer</field>
+        <field name="arch" type="xml">
+            <form string="Customer">
+                <sheet>
+                    <div class="oe_title mb-3 mx-3">
+                        <h1>
+                            <field name="name" placeholder="Customer Name"></field>
+                        </h1>
+                    </div>
+                    <group>         
+                        <field name="phone" string="Phone Number"/>
+                    </group>
+                    <group>   
+                        <field name="payment_method" string="Amount paid by"/>
+                        <field name="amount_paid" string="Amount paid"/>
+                        <field name="is_bill_paid" string="Amount paid"/>
+                    </group>
+                    <group>         
+                       
+                    </group> 
+                    <notebook>
+                        <page string="Books Borrowed">
+                           <field name="borrowed_book_ids"/>
+                        </page>
+                    </notebook>           
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="library_customer_view_search" model="ir.ui.view">
+        <field name="name">library.customer.search</field>
+        <field name="model">library.customer</field>
+        <field name="arch" type="xml">
+            <search string="Customer">
+                <field name="name" string="Customer Name"/>
+                <field name="phone" string="Phone Number"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="library_customer_action" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="res_model">library.customer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

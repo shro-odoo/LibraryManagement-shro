@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="library_book_menu_root" name="Library">
+        <menuitem id="Properties_menu" name="Properties">
+            <menuitem id="library_menu_action" action="library_book_action"/>
+        </menuitem>
+        <menuitem id="Customer_menu" name="Customer">
+            <menuitem id="library_customer_menu_action" action="library_customer_action"/>
+        </menuitem>
+    </menuitem>
+</odoo>

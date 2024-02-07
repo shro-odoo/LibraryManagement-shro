@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="index">
+        <t t-call="website.layout">
+            <!-- Title -->
+            <name>Books</name>
+            
+            <!-- Main content -->
+            <main class="container">
+                <section class="py-5 text-center">
+                    <div class="row py-4">
+                        <div class="col">
+                            <h1 class="display-4">Books</h1>
+                            <p class="font-italic text-muted mb-1">Books available</p>
+                        </div>
+                    </div>
+            
+                    <div class="row">
+                        <t t-foreach="books" t-as="book">
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <t t-if="book.image">
+                                        <img class="card-img-top" t-att-src="image_data_uri(book.image)" alt="Book Image"/>
+                                    </t>
+                                    <div class="card-body">
+                                        <h5 class="card-name"><t t-esc="book.name"/></h5>
+                                        <p class="card-text">Description: <t t-esc="book.description"/></p>
+                                        <p class="card-text">Price: <t t-esc="book.price"/></p>
+                                        <p class="card-text">Language: <t t-esc="book.language"/></p>
+                                        <p class="card-text">Availability: <t t-esc="book.availability_status"/></p>
+                                        <a t-attf-href="/library/#{book.id}" class="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <div class="oe_structure oe_new">
+                            <div t-if="pager" class="o_portal_pager d-flex justify-content-center my-3">
+                                <t t-call="website.pager"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </t>
+    </template>
+
+    <template id="book_details">
+        <t t-call="website.layout">
+            <t t-set="book" t-value="book"/>
+            <title><t t-esc="book.name"/></title>
+            
+            <!-- Main content -->
+            <main class="container">
+                <section class="py-5 text-center">
+                    <div class="row py-4">
+                        <div class="col">
+                            <h1 class="display-4"><t t-esc="book.name"/></h1>
+                            <p class="font-italic text-muted mb-1">Book details</p>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img class="img-fluid" t-att-src="image_data_uri(book.image)" alt="Book Image"/>
+                        </div>
+                        <div class="col-lg-6">
+                            <p>Price: <t t-esc="book.price"/></p>
+                            <p>Availability Status: <t t-esc="book.availability_status"/></p>
+                            <p>Types: <t t-esc="book.types"/></p>
+                            <p>Language: <t t-esc="book.language"/></p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </t>
+    </template>
+</odoo>
